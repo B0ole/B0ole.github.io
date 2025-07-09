@@ -1,39 +1,42 @@
 <!DOCTYPE html>
+<?php
+	require 'conn.php';
+	session_start();
+ 
+	if(!ISSET($_SESSION['user'])){
+		header('location:index.php');
+	}
+?>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Landing Page Title</title>
-  <link rel="stylesheet" href="style.css"> </head>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+	</head>
 <body>
-  <header>
-    <h1>Your Landing Page Heading</h1>
-    <nav>
-      </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h2>Your Hero Section Heading</h2>
-      <p>Your hero section content goes here.</p>
-      <button>Call to Action</button>
-    </section>
-
-    <section class="features">
-      <h2>Your Features Section Heading</h2>
-      <ul>
-        <li>Feature 1</li>
-        <li>Feature 2</li>
-        <li>Feature 3</li>
-      </ul>
-    </section>
-
-    <section class="contact">
-      <h2>Contact Us</h2>
-      </section>
-  </main>
-
-  <footer>
-    </footer>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			
+		</div>
+	</nav>
+	<div class="col-md-3"></div>
+	<div class="col-md-6 well">
+		<h3 class="text-primary"></h3>
+		<hr style="border-top:1px dotted #ccc;"/>
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<h3>Bem vindo!</h3>
+			<br />
+			<?php
+				$id = $_SESSION['user'];
+				$sql = $conn->prepare("SELECT * FROM `member` WHERE `mem_id`='$id'");
+				$sql->execute();
+				$fetch = $sql->fetch();
+			?>
+			<p style="text-align:center;">Nesta pagina será exibida os projetos realizado pelo laboratório de cadastro</p>
+            
+            <!--<center><h4><?php echo $fetch['firstname']." ". $fetch['lastname']?></h4></center>-->
+			<a href = "logout.php">Logout</a>
+		</div>
+	</div>
 </body>
 </html>
